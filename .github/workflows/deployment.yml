@@ -38,7 +38,7 @@ jobs:
            run: | 
               echo "${{ secrets.SERVER_KEY }}" > server.key
 
-              sf org login jwt -f server.key -i ${{ secrets.CONSUMER_KEY }} -o {{ secrets.USERNAME }}
+              sf org login jwt -f server.key -i ${{ secrets.CONSUMER_KEY }} -o ${{ secrets.USERNAME }}
 
               echo "Org Authentication is succesfull"
 
