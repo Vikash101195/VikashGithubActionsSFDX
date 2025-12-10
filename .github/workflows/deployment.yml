@@ -7,7 +7,7 @@ on:
         - 'force-app/**'
 
 jobs:
-   Deploy to SF org:
+   Deploy-to-SF-org:
        runs-on: ubuntu-latest
        steps:
          - name: 'Install NodeJS'
