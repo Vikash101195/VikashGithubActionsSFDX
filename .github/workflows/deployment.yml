@@ -31,17 +31,17 @@ jobs:
          - name: 'Create Delta package'
            run: |
               mkdir Delta-changes
-              sf sgd source delta --to "HEAD" --from "HEAD~1" --output Delta-changes/ --generate-delta --source force-app/
+              sf sgd source delta --to "HEAD" --from "HEAD~1" -o Delta-changes/ --generate-delta -s force-app/
               echo "Differences Generated"
 
          - name: 'Deploying Delta changes'
            run: | 
               echo "${{ secrets.SERVER_KEY }}" > server.key
 
-              sf org login jwt -f server.key -i ${{ secrets.CONSUMER_KEY }} -o ${{ secrets.USERNAME }}
+              sf org login jwt -f server.key -i ${{ secrets.CONSUMER_KEY }} -o ${{ secrets.USERNAME }} -a devhub
 
               echo "Org Authentication is succesfull"
 
-              sf project deploy start --source-dir Delta-changes/force-app --test-level RunLocalTests       
+              sf project deploy start --source-dir Delta-changes/force-app --test-level RunLocalTests  --target-org devhub     
 
 
