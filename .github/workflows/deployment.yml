@@ -1,0 +1,47 @@
+name: Deploying components through githubActions
+
+on: 
+  push:
+     branches: [main]
+     paths:
+        - 'force-app/**'
+
+jobs:
+   Deploy to SF org:
+       runs-on: ubuntu-latest
+       steps:
+         - name: 'Install NodeJS'
+           uses : actions/setup-node@v3
+           with:
+             node-version: '18'
+
+         - name: 'Checkout code'
+           uses: actions/checkout@v3
+           with: 
+             fetch-depth: '2'
+
+         - name: 'Install SFDX CLI'
+           run: npm install @salesforce/cli --global
+
+         - name: 'Insall SFDX git delta'
+           run: |
+              echo Y | sfdx plugins:install sfdx-git-delta
+              sfdx plugins
+
+         - name: 'Create Delta package'
+           run: |
+              mkdir Delta-changes
+              sf sgd source delta --to "HEAD" --from "HEAD~1" --output Delta-changes/ --generate-delta --source force-app/
+              echo "Differences Generated"
+
+         - name: 'Deploying Delta changes'
+           run: | 
+              echo "${{ secrets.SERVER_KEY }}" > server.key
+
+              sf org login jwt -f server.key -i ${{ secrets.CONSUMER_KEY }} -o {{ secrets.USERNAME }}
+
+              echo "Org Authentication is succesfull"
+
+              sf project deploy start --source-dir Delta-changes/force-app --test-level RunLocalTests       
+
+
