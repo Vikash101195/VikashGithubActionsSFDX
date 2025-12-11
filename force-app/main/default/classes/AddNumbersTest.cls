@@ -1,5 +1,6 @@
 //test get diff new 1 difference
 @isTest
+
 private class AddNumbersTest {
    @isTest static void AddNumbersTest() {
        AddNumbers ad = new AddNumbers();
