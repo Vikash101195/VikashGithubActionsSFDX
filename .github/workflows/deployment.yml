@@ -135,7 +135,8 @@ jobs:
               # exit 1
              fi
 
-              sf project deploy start --source-dir Delta-changes/force-app --target-org devhub --test-level $TEST_LEVEL $TEST_ARGS --json --verbose
+              # Use sfdx here because sfdx's force:source:deploy supports --runtests
+              sfdx force:source:deploy -p Delta-changes/force-app -u devhub -l $TEST_LEVEL $TEST_ARGS --json --verbose
 
              # sf project deploy start --source-dir Delta-changes/force-app --test-level RunLocalTests  --target-org devhub     
 
