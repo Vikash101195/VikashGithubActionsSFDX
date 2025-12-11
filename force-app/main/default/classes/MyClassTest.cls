@@ -1,5 +1,5 @@
 @IsTest
-public with sharing class MyClassTest {ß  
+public with sharing class MyClassTest {  
     @IsTest
     private static void nameSpaceTest(){
         Test.startTest();
