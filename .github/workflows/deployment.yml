@@ -127,7 +127,7 @@ jobs:
               if [ -n "$TEST_CLASSES" ]; then
               echo "Using RunSpecifiedTests with: $TEST_CLASSES"
               TEST_LEVEL="RunSpecifiedTests"
-              TEST_ARGS="-r $TEST_CLASSES"
+              TEST_ARGS="--runtests $TEST_CLASSES"
               else
               echo "No test classes detected in this commit."
               echo "Falling back to NoTestRun."
