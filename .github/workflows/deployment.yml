@@ -37,7 +37,7 @@ jobs:
            id: delta
            run: |
              chmod +x ./devops_scripts/Find_Test_Classes.sh
-             . /devops_scripts/Find_Test_Classes.sh
+             ./devops_scripts/Find_Test_Classes.sh
 
          - name: 'Authorize the org'
            run: | 
